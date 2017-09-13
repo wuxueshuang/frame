@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src = "../src/vue.js"></script>
+    </head>
+    <body>
+        <div id = "box">
+            <customs1></customs1>
+            <hr/>
+            <customs2></customs2>
+        </div>
+    <script>
+
+        /*
+            兄弟级通信可以借助一个中间量'bus'new Vue出来的实例来记录某个组件发生的事件，一个组件触发事件，通过中间量发布事件：
+             bus.$emit("事件名");
+             兄弟级组件监控这个事件，在兄弟级组件中有一个mounted,他是一个函数，给mounted添加$on事件： bus.$on("ok",this.listnerFn)
+             第一个参数是监听到的事件，也就是另一个兄弟级组件发布的事件，第二个参数是监测到事件之后这个兄弟组件要做的事情;
+        */
+        var bus = new Vue(); 
+        Vue.component("customs1",{
+            template:`
+                <button @click = "clickFn">确定</button>
+            `,
+            methods:{
+                clickFn(){
+                    console.log("我点击了确定");
+                    bus.$emit("ok");
+                }
+            }
+        });
+
+        Vue.component("customs2",{
+            mounted(){               
+                bus.$on("ok",this.listnerFn)
+            },
+            template:`
+                <button>取消</button>
+            `,           
+            methods:{               
+                listnerFn(){
+                    console.log("我检测到点击了确定");
+                }
+            }
+            
+        });
+        
+        new Vue({
+            el:"#box",
+        });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">       
+    </head>
+    <script src = "../src/vue.js"></script>
+    <body>
+        <div id = "box">
+            <div ref = "test1">控制我隐藏</div>
+            <customs-dialog 
+                title = "新闻标题" 
+                ok-value = "确定" 
+                cancel-value = "取消" 
+                @ok = "changeShow"
+                num = "11"
+            >
+                <!--changeShow函数放在new　Ｖｕｅ的methods中-->
+                <p>我是定制的结构</p>
+                <div slot = "footer-slot">我是底部定制的结构</div>
+            </customs-dialog>
+            <hr/>
+            <customs-other ></customs-other>
+        </div>
+        <script>
+            Vue.component("customs-dialog",{
+                props:{
+                    title:{
+                        type:String,//设置数据类型为字符串格式
+                        default:"标题"//设置默认值
+                        /*type: Object,   // 类型为对象，默认值default必须设置为函数，在函数中返回默认的对象
+						default(){
+							return {
+                                t:"标题"
+                            }
+						}*/
+                        
+                    },
+                    num:{
+                        
+                        validator(value){// 自定义验证规则
+                            typeof(value) == Number;
+                            return value>10;
+                        }
+                    },
+                    okValue:{
+                        required:true,//设置值是必填项
+                    },
+                    cancelValue:{
+                        required:false,
+                    }
+                },
+                template:`
+                   <div class = "dialog">
+                         <h2>{{title.t}}</h2>
+                         <span>{{num}}</span>
+                         <div class = "content">
+                            <slot>
+                                这是内容
+                            </slot>
+                         </div>
+                         <div class = "footer">
+                            <button @click = "okHandler">{{okValue}}</button>
+                            <button>{{cancelValue}}</button>
+                         </div>
+                         <slot name = "footer-slot"></slot>                         
+                   </div>
+                `,
+                methods:{
+                    okHandler(){
+                        this.$emit("ok");
+                        console.log("子级发布'ok事件'");
+                    }
+                   
+                }
+            });
+
+            Vue.component("customs-other",{
+                template:`
+                <div>
+                    <customs-dialog @ok ="okFn" ok-value = "安装" cancel-value = "退出">
+                    <button>测试弹框</button>
+					<div ref="test2" >控制我的宽高背景颜色</div>
+                    <table>
+                        <tr>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>工作</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </table>
+                </customs-dialog>
+                    <a href = "javaScript:;">我是按钮</a>
+                    <a href = "javaScript:;">我是按钮</a>
+                    <a href = "javaScript:;">我是按钮</a>
+                </div>
+                `,
+                methods:{
+                    okFn(){
+                        this.$refs.test2.style.background = 'red';
+                        console.log("我执行了");
+                    },
+                   
+                }
+            });
+            new Vue({
+                el:"#box",
+                methods:{
+                     changeShow(){//控制diw隐藏
+                        this.$refs.test1.style.display = "none";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
