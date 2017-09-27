@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script src = "./src/react.development.js"></script>
+		<script src = "./src/react-dom.development.js"></script>
+		<script src = "./src/babel.min.js"></script>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--<h2>Hello,World!</h2>-->
+		</div>
+		<script type="text/babel">
+			/*let h2 = React.createElement("h2",{className:'red'},"Hello,World!");
+			console.log(h2);
+			ReactDOM.render(
+				h2,
+				document.getElementById("box")
+			);*/
+
+			let html = 
+			<div>
+				<h2>Hello,World!</h2>
+				<ul>
+					<li>123</li>
+					<li>123</li>
+					<li>123</li>
+					<li>123</li>
+					<li>
+						<a href="javascript:;">百度</a>
+						<img src = "./img/3.jpg"/>
+					</li>
+				</ul>
+			</div>;
+			ReactDOM.render(
+				html,
+				document.getElementById("box")
+			)
+		</script>
+	</body>
+</html>
