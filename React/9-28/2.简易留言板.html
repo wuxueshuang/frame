@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+		/*
+				建议留言板结构划分：
+				1.根组件：
+					2.头部
+					3.内容区
+						4.单条数据
+						4.单条数据
+						4.单条数据
+						4.单条数据
+		*/
+		</script>
+		<script src = "../src/react.development.js"></script>
+		<script src = "../src/react-dom.development.js"></script>
+		<script src = "../src/babel.min.js"></script>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--
+			<div>
+				<input type="text" />
+			</div>
+			<ul>
+				<li>
+					<span>123456</span>
+					<input type ="button"  value="X"/>
+				</li>
+			</ul>-->
+		</div>
+
+		<script type="text/babel">
+			/* class APP extends React.Component {
+			       render () {
+			         return 
+			       }
+			     } */
+			//头部组件
+			class MessageHeader extends React.Component{
+				getValueHandle(ev){
+					if(ev.keyCode===13){
+						console.log(ev.target.value);
+						this.props.getValueHandleParent(ev.target.value)
+					}
+				}
+				render(){
+					return <div>
+								<input type="text" onKeyDown = {this.getValueHandle.bind(this)}/>
+							</div>
+				}
+			}
+
+			
+			//每一项
+			class Item extends React.Component {
+		       render () {
+		         return (
+		         	<li>
+			            <span>{this.props.text}</span>
+			            <input type="button" value="删除" />
+			         </li>
+		         )
+		       }
+		     }
+
+		    //内容组件
+			class Content extends React.Component {
+		       render () {
+		         return  (
+		         	<ul>
+		         		{
+		         			this.props.list.map(function(item,index){
+		         				return <Item key={index} text={item}></Item>
+		         			})
+		         		}
+					</ul>
+		         )
+		       }
+		     } 
+
+			//应用根组件：
+			class Root extends React.Component{
+				// 定义方法，这个方法在自己MessageHeader中触发
+			    getValueHandleParent (val) {
+			        console.log('parent:'+val)
+			        // 父级中的函数的this指向谁？
+			        console.log(this); // 原本指向了子组件的props这个对象
+			        this.props.list.push(val); // 这个props是不允许改变的
+			        // 更新组件只有一个途径就是改变状态
+			        console.log(this.props.list)
+			    }
+				render(){
+					return (
+						<div>
+							<h2>留言板</h2>
+							<MessageHeader  getValueHandleParent={this.getValueHandleParent.bind(this)}></MessageHeader>
+							<Content list={this.props.list}></Content>
+						</div>
+					)
+				}
+			}
+
+			let list = [1,2,3,4,5,8];
+			ReactDOM.render(
+				<Root list={list}></Root>,
+				box
+			);
+		</script>
+	</body>
+</html>

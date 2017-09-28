@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script src = "../src/react.development.js"></script>
+		<script src = "../src/react-dom.development.js"></script>
+		<script src = "../src/babel.min.js"></script>
+	</head>
+
+	<body>
+		<div id = "box">
+		<!--<h2>Hello,World!</h2>-->
+		<script type="text/babel">
+			/*let title = 'Hello,World!';
+			let html = 
+				<div>
+					<span>Hello,World!</span>
+				</div>;*/
+
+
+			/*for循环*/
+			/*let obj ={
+				title:"Welcome",
+				list:[6,5,4,3]
+			}
+			let obj2 ={
+				title:"Hello,World!",
+				list:["apple","orange","melon"]
+			}
+			class Tip extends React.Component{
+				render(){
+					return <h2>{this.props.tit}</h2>
+				}
+			}
+			class Content extends React.Component{
+				render(){
+					return  (
+						<div>
+							<Tip tit ={this.props.title}></Tip>
+							<ul>
+								{
+									this.props.list.map(function(item,index){
+										return <li key={index}>{item}</li>
+									})
+								}
+							</ul>
+						</div>
+					)
+				}
+			}
+			
+			ReactDOM.render(
+				<div>
+					<Content {...obj}></Content>
+					<Content {...obj2}></Content>
+				</div>,
+				document.getElementById("box")
+			);*/
+
+			// 绑定事件
+
+			class Btn extends React.Component{
+				render(){
+					let val ="北京欢迎你";
+					let style = {background:"red"};
+					return (
+						<div>
+							<h2>{val}</h2>
+							<button style={style}>change</button>
+						</div>
+					)
+				}
+			}
+
+			ReactDOM.render(
+				<Btn></Btn>,
+				document.getElementById("box")
+			)
+		</script>
+		</div>
+	</body>
+</html>

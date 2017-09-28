@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			/*
+				MVC模式：
+				M:model，模式
+				V：view，视图
+				C：control，控制
+
+				React属于V层；受控组件和非受控组件：
+					交互给React控制的为受控组件；
+					交互不给React控制的为非受控组件；
+				在React创建组件的时侯给input写value，表示input是受控组件，给input写value时必须配合onChange函数来使用，否则会报错；
+				constructor(props){
+					super();
+					this.state={
+						val:'123'
+					}
+				}
+				在input这个标签中写：
+					<input type="text" value={this.state.val} onChange={this.changeVal.bind(this)}/>
+			*/
+
+		</script>
+		<script src = "../src/react.development.js"></script>
+		<script src = "../src/react-dom.development.js"></script>
+		<script src = "../src/babel.min.js"></script>
+	</head>
+
+	<body>
+		<div id="box"></div>
+		<!--<input type="text" />-->
+		<script type="text/babel">
+			class InputBoth extends React.Component{
+				constructor(props){
+					super();
+					this.state={
+						val:'123'
+					}
+				}
+				changeVal(ev){
+					this.setState({
+						val:ev.target.value
+					})
+				}
+				render(){
+					return 
+						<div>
+							<input type="text" value={this.state.val} onChange={this.changeVal.bind(this)}/>
+							<p>{this.state.val}</p>
+						</div>
+				}
+			}
+			ReactDOM.render(
+				<InputBoth></InputBoth>,
+				box
+			)
+		</script>
+	</body>
+</html>
