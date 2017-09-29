@@ -1,0 +1,14 @@
+下载文件
+
+react v16.0.0
+------------------------
+react.development.js    核心代码
+react-dom.development.js  渲染DOM
+
+--------------
+npm install -g create-react-app
+
+create-react-app my-app
+cd my-app/
+npm start
+
