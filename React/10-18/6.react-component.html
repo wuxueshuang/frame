@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script src = "./src/react.development.js"></script>
+		<script src = "./src/react-dom.development.js"></script>
+		<script src = "./src/babel.min.js"></script>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--<h2>Hello,World!</h2>
+				<ul>
+					<li>123</li>
+					<li>123</li>
+					<li>123</li>
+					<li>123</li>
+				</ul>-->
+		</div>
+		<script type="text/babel">
+			class Btn extends React.Component{
+				render(){
+					let title = '提交';
+					let style ={width:'100px',height:'60px',background:'#ccc',borderRadius:'10%'};
+					let html =  <div style={style}></div>;
+					if(this.props.type==="text"){
+						html = <input type="text" />
+					}else if(this.props.type==="btn"){
+						html = <button style={style}></button>
+					}
+					return html;
+				}
+			}
+			ReactDOM.render(
+				<Btn type='btn' title="按钮"></Btn>,
+				document.getElementById("box")
+			);
+		</script>
+	</body>
+</html>
